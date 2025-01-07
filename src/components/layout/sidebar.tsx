@@ -6,20 +6,10 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerRoot,
-} from "@/shared/components/ui/drawer";
-import {
-  PopoverBody,
-  PopoverCloseTrigger,
-  PopoverContent,
-  PopoverRoot,
-  PopoverTrigger,
-} from "@/shared/components/ui/popover";
+} from "@/components/ui/drawer";
 import {
   Box,
   IconButton,
-  Input,
-  Stack,
-  Textarea,
   VStack,
 } from "@chakra-ui/react";
 import { FiHome } from "react-icons/fi";
@@ -29,10 +19,8 @@ import { LuCircleHelp } from "react-icons/lu";
 import { IoSettingsSharp } from "react-icons/io5";
 import { FaBell } from "react-icons/fa";
 import { useNavigate } from "@tanstack/react-router";
-import { Tooltip, TooltipProps } from "@/shared/components/ui/tooltip";
-import { PopoverArrow } from "@/shared/components/ui/popover";
-import { Field } from "@/shared/components/ui/field";
-import { LayoutIconButton } from "./LayoutIconButton";
+import { Tooltip, TooltipProps } from "@/components/ui/tooltip";
+import { LayoutIconButton } from "./icon-button";
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
@@ -58,9 +46,10 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
   return (
     <>
       <Box
+        className="dark"
+        bg="bg.panel"
         w={"12"}
         h="100vh"
-        bg={"#191c24"}
         position="fixed"
         top={12}
         display={{ base: "none", md: "block" }}
@@ -73,32 +62,11 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               <FiHome />
             </LayoutIconButton>
           </SidebarTooltip>
-          <PopoverRoot positioning={{ placement: "right-end" }}>
-            <PopoverTrigger bg={"transparent"} asChild>
-              <LayoutIconButton>
-                <SidebarTooltip content="Feedback">
-                  <MdSend />
-                </SidebarTooltip>
-              </LayoutIconButton>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverBody>
-                <Stack gap="4">
-                  <Field label="Width">
-                    <Input placeholder="40px" />
-                  </Field>
-                  <Field label="Height">
-                    <Input placeholder="32px" />
-                  </Field>
-                  <Field label="Comments">
-                    <Textarea placeholder="Start typing..." />
-                  </Field>
-                </Stack>
-              </PopoverBody>
-              <PopoverCloseTrigger />
-            </PopoverContent>
-          </PopoverRoot>
+          <SidebarTooltip content="Feedback">
+            <LayoutIconButton>
+              <MdSend />
+            </LayoutIconButton>
+          </SidebarTooltip>
           <SidebarTooltip content="Help">
             <LayoutIconButton>
               <LuCircleHelp />
@@ -124,13 +92,15 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         size={"xs"}
       >
         <DrawerBackdrop />
-        <DrawerContent bg={"#191c24"}>
+        <DrawerContent className="dark" bg="bg.panel">
           <DrawerActionTrigger asChild>
             <IconButton
               variant={"ghost"}
               rounded="full"
               color="gray.50"
-              _hover={{ bg: "whiteAlpha.200" }}
+              _hover={{
+                bg: "bg.alpha",
+              }}
               position={"absolute"}
               top={1}
               left={1}

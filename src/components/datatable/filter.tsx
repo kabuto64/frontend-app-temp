@@ -6,10 +6,10 @@ import {
   PopoverContent,
   PopoverRoot,
   PopoverTrigger,
-} from "../ui/popover";
+} from "@/components/ui/popover";
 import { Icon, IconButton, Input, Stack } from "@chakra-ui/react";
-import { InputGroup } from "@/shared/components/ui/input-group";
-import { Checkbox } from "../ui/checkbox";
+import { InputGroup } from "@/components/ui/input-group";
+import { Checkbox } from "@/components/ui/checkbox";
 import { LuSearch } from "react-icons/lu";
 import { FaFilter } from "react-icons/fa6";
 
@@ -56,7 +56,7 @@ const FilterCheckbox = memo(
 
 FilterCheckbox.displayName = "FilterCheckbox";
 
-function TableFilterPopoverComponent<T>({
+function FilterPopoverComponent<T>({
   column,
   data,
   onFilterChange,
@@ -208,6 +208,6 @@ function TableFilterPopoverComponent<T>({
     </PopoverRoot>
   );
 }
-export const TableFilterPopover = memo(
-  TableFilterPopoverComponent
-) as typeof TableFilterPopoverComponent;
+export const FilterPopover = memo(
+  FilterPopoverComponent
+) as typeof FilterPopoverComponent;

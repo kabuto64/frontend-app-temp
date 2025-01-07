@@ -1,7 +1,7 @@
 import { Box, Container, Flex, useDisclosure } from "@chakra-ui/react";
 import { ReactNode } from "@tanstack/react-router";
-import { Sidebar } from "./Sideber";
-import Header from "./Header";
+import { Sidebar } from "./sidebar";
+import { Header } from "./header";
 
 export function Layout({ children }: { children: ReactNode }) {
   const { open, onOpen, onClose } = useDisclosure();

@@ -15,12 +15,11 @@ import {
 } from "@tanstack/react-table";
 import { Box, HStack, Table as ChakraTable, Icon } from "@chakra-ui/react";
 import { BiSort } from "react-icons/bi";
-import { TableFilterPopover } from "./TableFilterPopover";
-import { filterByArray } from "./filterFns";
-import { EmptyState } from "../ui/empty-state";
+import { FilterPopover } from "./filter";
+import { EmptyState } from "@/components/ui/empty-state";
 import { PiEmptyBold } from "react-icons/pi";
 import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
-
+import { filterByArray } from "@/libs/tanstack/table/filterFns";
 // 型定義
 type BaseRecord = { id: string | number };
 type SortIconProps = { sortDir: false | SortDirection };
@@ -43,11 +42,11 @@ type TableBodyProps<T extends BaseRecord> = {
 const SortIcon = ({ sortDir }: SortIconProps) => {
   if (sortDir === false) return <BiSort color="gray.400" />;
   return sortDir === "asc" ? (
-    <Icon color="cyan.focusRing">
+    <Icon color="cyan.focusRing" asChild>
       <FaArrowUpLong />
     </Icon>
   ) : (
-    <Icon color="cyan.focusRing">
+    <Icon color="cyan.focusRing" asChild>
       <FaArrowDownLong />
     </Icon>
   );
@@ -67,8 +66,8 @@ const TableHeaderCell = <T extends BaseRecord>({
   return (
     <ChakraTable.ColumnHeader
       py={1.5}
-      bg={"bg.th"}
-      _hover={{ bg: "bg.th_hover" }}
+      bg={"bg.muted"}
+      _hover={{ bg: "bg.emphasized" }}
       position="relative"
       style={{
         width: `calc(var(--header-${header.id}-size) * 1px)`,
@@ -88,7 +87,7 @@ const TableHeaderCell = <T extends BaseRecord>({
         </Box>
 
         <Box>
-          <TableFilterPopover
+          <FilterPopover
             column={header.column}
             data={data}
             onFilterChange={handleFilterChange}
@@ -116,16 +115,10 @@ const ResizeHandle = <T extends BaseRecord>({
     onMouseDown={header.getResizeHandler()}
     onTouchStart={header.getResizeHandler()}
     _hover={{
-      bg: {
-        _dark: "whiteAlpha.200",
-        _light: "blackAlpha.200",
-      },
+      bg: "bg.alpha",
     }}
     _active={{
-      bg: {
-        _dark: "whiteAlpha.300",
-        _light: "blackAlpha.300",
-      },
+      bg: "bg.alpha",
     }}
   />
 );
@@ -160,10 +153,7 @@ const TableBodyContent = <T extends BaseRecord>({
     <ChakraTable.Row
       key={row.id}
       onClick={() => onRowClick(row.original.id)}
-      bg={selectedRowId === row.original.id ? "blue.muted" : undefined}
-      _hover={{
-        bg: { _dark: "whiteAlpha.100", _light: "blackAlpha.100" },
-      }}
+      data-selected={selectedRowId === row.original.id ? "" : undefined}
       cursor="pointer"
     >
       {row.getVisibleCells().map((cell) => (
@@ -235,6 +225,7 @@ export function DataTable<T extends BaseRecord>({
           ...columnSizeVars,
           width: table.getTotalSize(),
         }}
+        interactive
         stickyHeader
       >
         <ChakraTable.Header>

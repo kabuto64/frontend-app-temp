@@ -21,7 +21,9 @@ export const LayoutIconButton = React.forwardRef<
         size="sm"
         color="gray.50"
         bg="transparent"
-        _hover={{ bg: "whiteAlpha.200" }}
+        _hover={{
+          bg: "bg.alpha",
+        }}
         css={{
           _icon: {
             width: "5",

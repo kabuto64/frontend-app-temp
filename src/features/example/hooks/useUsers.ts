@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { User } from "../types/user";
+import { User } from "../types/type";
 import { client } from "@/libs/axios/client";
 
 export const useUsers = () => {

@@ -1,5 +1,5 @@
-import { Avatar } from "@/shared/components/ui/avatar";
-import { ColorModeButton } from "@/shared/components/ui/color-mode";
+import { Avatar } from "@/components/ui/avatar";
+import { ColorModeButton } from "@/components/ui/color-mode";
 import { Box, Flex, HStack, IconButton, Input, Text } from "@chakra-ui/react";
 import { PiListBold } from "react-icons/pi";
 import {
@@ -9,8 +9,8 @@ import {
   PopoverRoot,
   PopoverTitle,
   PopoverTrigger,
-} from "@/shared/components/ui/popover";
-import { InputGroup } from "@/shared/components/ui/input-group";
+} from "@/components/ui/popover";
+import { InputGroup } from "@/components/ui/input-group";
 import { LuSearch } from "react-icons/lu";
 interface HeaderProps {
   onOpenSidebar: () => void;
@@ -21,8 +21,8 @@ export function Header({ onOpenSidebar }: HeaderProps) {
     <>
       <Box
         className="dark"
+        bg="bg.panel"
         w={"100%"}
-        bg="bg.primary"
         px={1}
         position="fixed"
         top="0"
@@ -32,13 +32,12 @@ export function Header({ onOpenSidebar }: HeaderProps) {
       >
         <Flex h={12} alignItems="center" justifyContent="space-between">
           <IconButton
-            className=""
             variant={"ghost"}
             rounded="full"
             color="gray.50"
             onClick={onOpenSidebar}
             _hover={{
-              bg: "whiteAlpha.200",
+              bg: "bg.alpha",
             }}
           >
             <PiListBold />
@@ -51,7 +50,9 @@ export function Header({ onOpenSidebar }: HeaderProps) {
           <HStack>
             <ColorModeButton
               color="gray.50"
-              _hover={{ bg: "whiteAlpha.200" }}
+              _hover={{
+                bg: "bg.alpha",
+              }}
             ></ColorModeButton>
             <PopoverRoot>
               <PopoverTrigger asChild>
