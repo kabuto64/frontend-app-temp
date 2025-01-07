@@ -10,9 +10,9 @@ import { useUsers } from "../hooks/useUsers";
 import { Title } from "@/components/title";
 
 export function Example() {
-  const { data: users, isLoading, error } = useUsers();
+  const { data: users, isFetching , error } = useUsers();
   const columns = useColumns();
-  if (isLoading) return <div>Loading...</div>;
+  if (isFetching ) return <div>Loading...</div>;
   if (error) return <div>Error occurred</div>;
 
   return (
