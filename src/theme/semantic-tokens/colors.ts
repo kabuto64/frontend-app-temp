@@ -34,7 +34,10 @@ export const semanticColors = defineSemanticTokens.colors({
     },
     // add
     alpha: {
-      value: { _light: "{colors.blackAlpha.200}", _dark: "{colors.whiteAlpha.200}"},
+      value: {
+        _light: "{colors.blackAlpha.200}",
+        _dark: "{colors.whiteAlpha.200}",
+      },
     },
   },
   fg: {
@@ -92,4 +95,4 @@ export const semanticColors = defineSemanticTokens.colors({
       value: { _light: "{colors.blue.500}", _dark: "{colors.blue.400}" },
     },
   },
-})
+});

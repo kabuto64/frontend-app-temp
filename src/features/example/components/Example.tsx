@@ -3,21 +3,22 @@ import { Tabs } from "@chakra-ui/react";
 import { IoMdSettings } from "react-icons/io";
 import { LuFolder, LuUser } from "react-icons/lu";
 import { BiCommentError } from "react-icons/bi";
-import { DataTable } from "@/components/datatable";
+import { DataTable, SkeletonDataTable } from "@/components/datatable";
 import { Table } from "@chakra-ui/react";
 import { useColumns } from "../hooks/useColumns";
 import { useUsers } from "../hooks/useUsers";
 import { Title } from "@/components/title";
+import { Basic } from "@/components/datepicker/datepicker";
 
 export function Example() {
-  const { data: users, isFetching , error } = useUsers();
+  const { data: users, isFetching, error } = useUsers();
   const columns = useColumns();
-  if (isFetching ) return <div>Loading...</div>;
   if (error) return <div>Error occurred</div>;
 
   return (
     <>
       <Title title="Example" description="This is a ExamplePage" />
+      <Basic></Basic>
       <Tabs.Root defaultValue="members">
         <Tabs.List>
           <Tabs.Trigger value="members">
@@ -34,13 +35,17 @@ export function Example() {
           </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="members">
-          <DataTable data={users} columns={columns} />
+          {isFetching ? (
+            <SkeletonDataTable columns={columns} rowCount={20} />
+          ) : (
+            <DataTable data={users} columns={columns} />
+          )}
         </Tabs.Content>
         <Tabs.Content value="projects">
           <EmptyState
             icon={<BiCommentError />}
-            title="Your cart is empty"
-            description="Explore our products and add items to your cart"
+            title="Your projects is empty"
+            description="Explore our products and add items to your project"
           />
         </Tabs.Content>
         <Tabs.Content value="tasks">

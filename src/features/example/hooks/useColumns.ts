@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { User } from "../types/type";
+import { User } from "../types";
 import { filterByArray } from "@/libs/tanstack/table/filterFns";
 import { useMemo } from "react";
 
