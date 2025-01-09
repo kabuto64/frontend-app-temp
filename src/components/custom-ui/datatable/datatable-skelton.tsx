@@ -19,7 +19,7 @@ import { IoFilter } from "react-icons/io5";
 type BaseRecord = { id: string | number };
 
 // スケルトンテーブルコンポーネント
-export function SkeletonDataTable<T extends BaseRecord>({
+export function SkeltonDataTable<T extends BaseRecord>({
   columns,
   rowCount = 10,
 }: {
@@ -81,6 +81,7 @@ export function SkeletonDataTable<T extends BaseRecord>({
                   key={header.id}
                   py={1.5}
                   bg={"bg.muted"}
+                  fontWeight={600}
                   style={{
                     width: `calc(var(--header-${header.id}-size) * 1px)`,
                   }}

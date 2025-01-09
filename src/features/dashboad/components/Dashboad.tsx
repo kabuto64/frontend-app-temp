@@ -1,10 +1,13 @@
-import { Stack, Card, HStack, Icon } from "@chakra-ui/react";
+import { Stack, Card, HStack, Box } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { LinkOptions, useNavigate } from "@tanstack/react-router";
-import { Title } from "@/components/title";
+import { Title } from "@/components/custom-ui/title";
 import { IconType } from "react-icons";
 import { IoMdSettings } from "react-icons/io";
-
+import { BasicDatePicker } from "@/components/custom-ui/datepicker";
+import { useState } from "react";
+import { BreadcrumbLink, BreadcrumbRoot } from "@/components/ui/breadcrumb";
+import { LuHouse } from "react-icons/lu";
 type ContentCardProp = {
   icon: IconType;
   title: string;
@@ -23,9 +26,9 @@ const ContentCard = ({
     <Card.Root width="320px" variant={"outline"}>
       <Card.Body gap="1">
         <HStack gap="2">
-          <Icon color={"fg.muted"} size={"lg"}>
+          <Box color={"fg.muted"} fontSize={"2xl"}>
             <CardIcon />
-          </Icon>
+          </Box>
           <Card.Title>{title}</Card.Title>
         </HStack>
         <Card.Description>{description}</Card.Description>
@@ -40,15 +43,22 @@ const ContentCard = ({
 };
 
 export function Dashboad() {
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
   return (
     <>
+      <BreadcrumbRoot mb={3} variant="plain">
+        <BreadcrumbLink href="#">
+          <LuHouse /> Home
+        </BreadcrumbLink>
+      </BreadcrumbRoot>
       <Title title="Welcome!" description="This is a StartPage" />
+      <BasicDatePicker onTextChange={setSelectedDate} />
       <Stack gap="4" direction="row" wrap="wrap" mt={5}>
         <ContentCard
           icon={IoMdSettings}
-          title="Example"
-          description="This is a Example page."
-          link={{ to: "/about" }}
+          title={"Example"}
+          description={selectedDate as string}
+          link={{ to: "/example" }}
         />
       </Stack>
     </>

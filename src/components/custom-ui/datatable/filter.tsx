@@ -7,7 +7,7 @@ import {
   PopoverRoot,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Icon, IconButton, Input, Stack } from "@chakra-ui/react";
+import { Box, IconButton, Input, Stack } from "@chakra-ui/react";
 import { InputGroup } from "@/components/ui/input-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { LuSearch } from "react-icons/lu";
@@ -165,9 +165,9 @@ function FilterPopoverComponent<T>({
           }}
         >
           {isFiltered ? (
-            <Icon color="cyan.focusRing">
+            <Box color="cyan.focusRing">
               <FaFilter />
-            </Icon>
+            </Box>
           ) : (
             <IoFilter />
           )}

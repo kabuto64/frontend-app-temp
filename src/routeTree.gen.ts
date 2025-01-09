@@ -16,22 +16,47 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
-const AboutLazyImport = createFileRoute('/about')()
+const ExampleLazyImport = createFileRoute('/example')()
 const IndexLazyImport = createFileRoute('/')()
+const ExampleIndexLazyImport = createFileRoute('/example/')()
+const ExampleSettingsLazyImport = createFileRoute('/example/settings')()
+const ExampleProjectsLazyImport = createFileRoute('/example/projects')()
 
 // Create/Update Routes
 
-const AboutLazyRoute = AboutLazyImport.update({
-  id: '/about',
-  path: '/about',
+const ExampleLazyRoute = ExampleLazyImport.update({
+  id: '/example',
+  path: '/example',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/example.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const ExampleIndexLazyRoute = ExampleIndexLazyImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ExampleLazyRoute,
+} as any).lazy(() => import('./routes/example/index.lazy').then((d) => d.Route))
+
+const ExampleSettingsLazyRoute = ExampleSettingsLazyImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => ExampleLazyRoute,
+} as any).lazy(() =>
+  import('./routes/example/settings.lazy').then((d) => d.Route),
+)
+
+const ExampleProjectsLazyRoute = ExampleProjectsLazyImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => ExampleLazyRoute,
+} as any).lazy(() =>
+  import('./routes/example/projects.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -44,51 +69,107 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutLazyImport
+    '/example': {
+      id: '/example'
+      path: '/example'
+      fullPath: '/example'
+      preLoaderRoute: typeof ExampleLazyImport
       parentRoute: typeof rootRoute
+    }
+    '/example/projects': {
+      id: '/example/projects'
+      path: '/projects'
+      fullPath: '/example/projects'
+      preLoaderRoute: typeof ExampleProjectsLazyImport
+      parentRoute: typeof ExampleLazyImport
+    }
+    '/example/settings': {
+      id: '/example/settings'
+      path: '/settings'
+      fullPath: '/example/settings'
+      preLoaderRoute: typeof ExampleSettingsLazyImport
+      parentRoute: typeof ExampleLazyImport
+    }
+    '/example/': {
+      id: '/example/'
+      path: '/'
+      fullPath: '/example/'
+      preLoaderRoute: typeof ExampleIndexLazyImport
+      parentRoute: typeof ExampleLazyImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface ExampleLazyRouteChildren {
+  ExampleProjectsLazyRoute: typeof ExampleProjectsLazyRoute
+  ExampleSettingsLazyRoute: typeof ExampleSettingsLazyRoute
+  ExampleIndexLazyRoute: typeof ExampleIndexLazyRoute
+}
+
+const ExampleLazyRouteChildren: ExampleLazyRouteChildren = {
+  ExampleProjectsLazyRoute: ExampleProjectsLazyRoute,
+  ExampleSettingsLazyRoute: ExampleSettingsLazyRoute,
+  ExampleIndexLazyRoute: ExampleIndexLazyRoute,
+}
+
+const ExampleLazyRouteWithChildren = ExampleLazyRoute._addFileChildren(
+  ExampleLazyRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/about': typeof AboutLazyRoute
+  '/example': typeof ExampleLazyRouteWithChildren
+  '/example/projects': typeof ExampleProjectsLazyRoute
+  '/example/settings': typeof ExampleSettingsLazyRoute
+  '/example/': typeof ExampleIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
-  '/about': typeof AboutLazyRoute
+  '/example/projects': typeof ExampleProjectsLazyRoute
+  '/example/settings': typeof ExampleSettingsLazyRoute
+  '/example': typeof ExampleIndexLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
-  '/about': typeof AboutLazyRoute
+  '/example': typeof ExampleLazyRouteWithChildren
+  '/example/projects': typeof ExampleProjectsLazyRoute
+  '/example/settings': typeof ExampleSettingsLazyRoute
+  '/example/': typeof ExampleIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths:
+    | '/'
+    | '/example'
+    | '/example/projects'
+    | '/example/settings'
+    | '/example/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to: '/' | '/example/projects' | '/example/settings' | '/example'
+  id:
+    | '__root__'
+    | '/'
+    | '/example'
+    | '/example/projects'
+    | '/example/settings'
+    | '/example/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  AboutLazyRoute: typeof AboutLazyRoute
+  ExampleLazyRoute: typeof ExampleLazyRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  AboutLazyRoute: AboutLazyRoute,
+  ExampleLazyRoute: ExampleLazyRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -102,14 +183,31 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about"
+        "/example"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
-    "/about": {
-      "filePath": "about.lazy.tsx"
+    "/example": {
+      "filePath": "example.lazy.tsx",
+      "children": [
+        "/example/projects",
+        "/example/settings",
+        "/example/"
+      ]
+    },
+    "/example/projects": {
+      "filePath": "example/projects.lazy.tsx",
+      "parent": "/example"
+    },
+    "/example/settings": {
+      "filePath": "example/settings.lazy.tsx",
+      "parent": "/example"
+    },
+    "/example/": {
+      "filePath": "example/index.lazy.tsx",
+      "parent": "/example"
     }
   }
 }

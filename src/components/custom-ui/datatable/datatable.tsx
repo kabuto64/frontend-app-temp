@@ -13,7 +13,7 @@ import {
   Row,
   Table,
 } from "@tanstack/react-table";
-import { Box, HStack, Table as ChakraTable, Icon } from "@chakra-ui/react";
+import { Box, HStack, Table as ChakraTable } from "@chakra-ui/react";
 import { BiSort } from "react-icons/bi";
 import { FilterPopover } from "./filter";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -42,13 +42,13 @@ type TableBodyProps<T extends BaseRecord> = {
 const SortIcon = ({ sortDir }: SortIconProps) => {
   if (sortDir === false) return <BiSort color="gray.400" />;
   return sortDir === "asc" ? (
-    <Icon color="cyan.focusRing" asChild>
+    <Box color="cyan.focusRing">
       <FaArrowUpLong />
-    </Icon>
+    </Box>
   ) : (
-    <Icon color="cyan.focusRing" asChild>
+    <Box color="cyan.focusRing">
       <FaArrowDownLong />
-    </Icon>
+    </Box>
   );
 };
 
@@ -67,6 +67,7 @@ const TableHeaderCell = <T extends BaseRecord>({
     <ChakraTable.ColumnHeader
       py={1.5}
       bg={"bg.muted"}
+      fontWeight={600}
       _hover={{ bg: "bg.emphasized" }}
       position="relative"
       style={{
