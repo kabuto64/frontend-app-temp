@@ -10,8 +10,7 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { InputGroup } from "@/components/ui/input-group";
-import { LuSearch } from "react-icons/lu";
+import SearchBar from "./searchbar";
 interface HeaderProps {
   onOpenSidebar: () => void;
 }
@@ -43,9 +42,10 @@ export function Header({ onOpenSidebar }: HeaderProps) {
             <PiListBold />
           </IconButton>
           <Box flex={1} maxW={"600px"}>
-            <InputGroup flex="1" px={5} w={"100%"} startElement={<LuSearch />}>
+            <SearchBar />
+            {/* <InputGroup flex="1" px={5} w={"100%"} startElement={<LuSearch />}>
               <Input color={"white"} size={"sm"} w={"100%"} />
-            </InputGroup>
+            </InputGroup> */}
           </Box>
           <HStack>
             <ColorModeButton
