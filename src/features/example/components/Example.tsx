@@ -24,7 +24,7 @@ export function Example() {
       </BreadcrumbRoot>
       <Title title="Example" description="This is a ExamplePage" />
       <Tabs.Root
-        mb={5}
+        mb={3}
         defaultValue=""
         value={activeTab}
         onValueChange={({ value }) => {

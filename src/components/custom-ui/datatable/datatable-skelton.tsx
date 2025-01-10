@@ -22,9 +22,11 @@ type BaseRecord = { id: string | number };
 export function SkeltonDataTable<T extends BaseRecord>({
   columns,
   rowCount = 10,
+  height,
 }: {
   columns: ColumnDef<T>[];
   rowCount?: number;
+  height?: string;
 }) {
   // ダミーデータの作成
   const dummyData = useMemo(
@@ -61,8 +63,9 @@ export function SkeltonDataTable<T extends BaseRecord>({
     <ChakraTable.ScrollArea
       borderWidth="1px"
       rounded="md"
-      height="500px"
+      height={height}
       maxWidth={"100%"}
+      minHeight={"200px"}
     >
       <ChakraTable.Root
         size={"sm"}

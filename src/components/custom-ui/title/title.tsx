@@ -5,12 +5,9 @@ type TitleProp = {
   description: string;
 };
 
-export const Title = ({
-  title,
-  description,
-}: TitleProp) => {
+export const Title = ({ title, description }: TitleProp) => {
   return (
-    <Stack gap={2} align={"flex-start"} mb={5}>
+    <Stack gap={2} align={"flex-start"} mb={3}>
       <Heading size="3xl" letterSpacing="tight">
         {title}
       </Heading>

@@ -175,9 +175,11 @@ const TableBodyContent = <T extends BaseRecord>({
 export function DataTable<T extends BaseRecord>({
   data,
   columns,
+  height,
 }: {
   data: T[];
   columns: ColumnDef<T>[];
+  height?: string;
 }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedRowId, setSelectedRowId] = useState<T["id"] | null>(null);
@@ -216,8 +218,9 @@ export function DataTable<T extends BaseRecord>({
     <ChakraTable.ScrollArea
       borderWidth="1px"
       rounded="md"
-      height="500px"
+      height={height}
       maxWidth={"100%"}
+      minHeight={"200px"}
     >
       <ChakraTable.Root
         size={"sm"}

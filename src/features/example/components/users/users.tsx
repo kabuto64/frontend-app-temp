@@ -10,9 +10,17 @@ export function Users() {
   return (
     <>
       {isFetching ? (
-        <SkeltonDataTable columns={columns} rowCount={12} />
+        <SkeltonDataTable
+          columns={columns}
+          rowCount={20}
+          height="calc(100vh - 280px)"
+        />
       ) : (
-        <DataTable data={users} columns={columns} />
+        <DataTable
+          data={users}
+          columns={columns}
+          height="calc(100vh - 280px)"
+        />
       )}
     </>
   );
