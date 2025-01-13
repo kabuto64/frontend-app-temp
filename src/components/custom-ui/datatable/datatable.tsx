@@ -20,6 +20,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { PiEmptyBold } from "react-icons/pi";
 import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
 import { filterByArray } from "@/libs/tanstack/table/filterFns";
+import { SkeltonDataTable } from "./datatable-skelton";
 // 型定義
 type BaseRecord = { id: string | number };
 type SortIconProps = { sortDir: false | SortDirection };
@@ -175,11 +176,17 @@ const TableBodyContent = <T extends BaseRecord>({
 export function DataTable<T extends BaseRecord>({
   data,
   columns,
-  height,
+  height = "100%",
+  width,
+  isFetching = false,
+  dummyItemLength = 20,
 }: {
   data: T[];
   columns: ColumnDef<T>[];
   height?: string;
+  width?: string;
+  isFetching?: boolean;
+  dummyItemLength?: number;
 }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [selectedRowId, setSelectedRowId] = useState<T["id"] | null>(null);
@@ -215,46 +222,56 @@ export function DataTable<T extends BaseRecord>({
   }, [table.getState().columnSizingInfo, table.getState().columnSizing]);
 
   return (
-    <ChakraTable.ScrollArea
-      borderWidth="1px"
-      rounded="md"
-      height={height}
-      maxWidth={"100%"}
-      minHeight={"200px"}
-    >
-      <ChakraTable.Root
-        size={"sm"}
-        overflow={"unset"}
-        style={{
-          ...columnSizeVars,
-          width: table.getTotalSize(),
-        }}
-        interactive
-        stickyHeader
-      >
-        <ChakraTable.Header>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <ChakraTable.Row key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <TableHeaderCell
-                  key={header.id}
-                  header={header}
-                  table={table}
-                  data={memoizedData}
-                />
+    <>
+      {isFetching ? (
+        <SkeltonDataTable
+          columns={columns}
+          rowCount={dummyItemLength}
+          height={height}
+          width={width}
+        />
+      ) : (
+        <ChakraTable.ScrollArea
+          borderWidth="1px"
+          rounded="md"
+          height={height}
+          maxWidth={"100%"}
+        >
+          <ChakraTable.Root
+            size={"sm"}
+            overflow={"unset"}
+            style={{
+              ...columnSizeVars,
+              width: width ? width : table.getTotalSize(),
+            }}
+            interactive
+            stickyHeader
+          >
+            <ChakraTable.Header>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <ChakraTable.Row key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <TableHeaderCell
+                      key={header.id}
+                      header={header}
+                      table={table}
+                      data={memoizedData}
+                    />
+                  ))}
+                </ChakraTable.Row>
               ))}
-            </ChakraTable.Row>
-          ))}
-        </ChakraTable.Header>
-        <ChakraTable.Body>
-          <TableBodyContent
-            rows={table.getRowModel().rows}
-            columns={table.getAllColumns().length}
-            selectedRowId={selectedRowId}
-            onRowClick={setSelectedRowId}
-          />
-        </ChakraTable.Body>
-      </ChakraTable.Root>
-    </ChakraTable.ScrollArea>
+            </ChakraTable.Header>
+            <ChakraTable.Body>
+              <TableBodyContent
+                rows={table.getRowModel().rows}
+                columns={table.getAllColumns().length}
+                selectedRowId={selectedRowId}
+                onRowClick={setSelectedRowId}
+              />
+            </ChakraTable.Body>
+          </ChakraTable.Root>
+        </ChakraTable.ScrollArea>
+      )}
+    </>
   );
 }

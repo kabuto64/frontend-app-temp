@@ -22,11 +22,13 @@ type BaseRecord = { id: string | number };
 export function SkeltonDataTable<T extends BaseRecord>({
   columns,
   rowCount = 10,
-  height,
+  height = "100%",
+  width,
 }: {
   columns: ColumnDef<T>[];
   rowCount?: number;
   height?: string;
+  width?: string;
 }) {
   // ダミーデータの作成
   const dummyData = useMemo(
@@ -72,7 +74,7 @@ export function SkeltonDataTable<T extends BaseRecord>({
         overflow={"unset"}
         style={{
           ...columnSizeVars,
-          width: table.getTotalSize(),
+          width: width ? width : table.getTotalSize(),
         }}
         stickyHeader
       >

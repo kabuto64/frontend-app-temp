@@ -7,11 +7,7 @@ import {
   DrawerHeader,
   DrawerRoot,
 } from "@/components/ui/drawer";
-import {
-  Box,
-  IconButton,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, IconButton, VStack } from "@chakra-ui/react";
 import { FiHome } from "react-icons/fi";
 import { PiListBold } from "react-icons/pi";
 import { MdSend } from "react-icons/md";

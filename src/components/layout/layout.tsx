@@ -11,7 +11,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <Header onOpenSidebar={onOpen}></Header>
         <Sidebar isOpen={open} onClose={onClose} />
         <Box flex={1} overflow={"auto"} mt={12} ml={12}>
-          <Container as="main" maxW={"11/12"} fluid={true} mt={5}>
+          <Container as="main" maxW={"full"} fluid={true} mt={5}>
             {children}
           </Container>
         </Box>

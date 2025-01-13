@@ -17,6 +17,8 @@ import { Route as rootRoute } from './routes/__root'
 // Create Virtual Routes
 
 const ExampleLazyImport = createFileRoute('/example')()
+const R3paneExampleLazyImport = createFileRoute('/3pane-example')()
+const R2paneExampleLazyImport = createFileRoute('/2pane-example')()
 const IndexLazyImport = createFileRoute('/')()
 const ExampleIndexLazyImport = createFileRoute('/example/')()
 const ExampleSettingsLazyImport = createFileRoute('/example/settings')()
@@ -29,6 +31,18 @@ const ExampleLazyRoute = ExampleLazyImport.update({
   path: '/example',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/example.lazy').then((d) => d.Route))
+
+const R3paneExampleLazyRoute = R3paneExampleLazyImport.update({
+  id: '/3pane-example',
+  path: '/3pane-example',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/3pane-example.lazy').then((d) => d.Route))
+
+const R2paneExampleLazyRoute = R2paneExampleLazyImport.update({
+  id: '/2pane-example',
+  path: '/2pane-example',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/2pane-example.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
@@ -67,6 +81,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/2pane-example': {
+      id: '/2pane-example'
+      path: '/2pane-example'
+      fullPath: '/2pane-example'
+      preLoaderRoute: typeof R2paneExampleLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/3pane-example': {
+      id: '/3pane-example'
+      path: '/3pane-example'
+      fullPath: '/3pane-example'
+      preLoaderRoute: typeof R3paneExampleLazyImport
       parentRoute: typeof rootRoute
     }
     '/example': {
@@ -120,6 +148,8 @@ const ExampleLazyRouteWithChildren = ExampleLazyRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/2pane-example': typeof R2paneExampleLazyRoute
+  '/3pane-example': typeof R3paneExampleLazyRoute
   '/example': typeof ExampleLazyRouteWithChildren
   '/example/projects': typeof ExampleProjectsLazyRoute
   '/example/settings': typeof ExampleSettingsLazyRoute
@@ -128,6 +158,8 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/2pane-example': typeof R2paneExampleLazyRoute
+  '/3pane-example': typeof R3paneExampleLazyRoute
   '/example/projects': typeof ExampleProjectsLazyRoute
   '/example/settings': typeof ExampleSettingsLazyRoute
   '/example': typeof ExampleIndexLazyRoute
@@ -136,6 +168,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/2pane-example': typeof R2paneExampleLazyRoute
+  '/3pane-example': typeof R3paneExampleLazyRoute
   '/example': typeof ExampleLazyRouteWithChildren
   '/example/projects': typeof ExampleProjectsLazyRoute
   '/example/settings': typeof ExampleSettingsLazyRoute
@@ -146,15 +180,25 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/2pane-example'
+    | '/3pane-example'
     | '/example'
     | '/example/projects'
     | '/example/settings'
     | '/example/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/example/projects' | '/example/settings' | '/example'
+  to:
+    | '/'
+    | '/2pane-example'
+    | '/3pane-example'
+    | '/example/projects'
+    | '/example/settings'
+    | '/example'
   id:
     | '__root__'
     | '/'
+    | '/2pane-example'
+    | '/3pane-example'
     | '/example'
     | '/example/projects'
     | '/example/settings'
@@ -164,11 +208,15 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  R2paneExampleLazyRoute: typeof R2paneExampleLazyRoute
+  R3paneExampleLazyRoute: typeof R3paneExampleLazyRoute
   ExampleLazyRoute: typeof ExampleLazyRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  R2paneExampleLazyRoute: R2paneExampleLazyRoute,
+  R3paneExampleLazyRoute: R3paneExampleLazyRoute,
   ExampleLazyRoute: ExampleLazyRouteWithChildren,
 }
 
@@ -183,11 +231,19 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/2pane-example",
+        "/3pane-example",
         "/example"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/2pane-example": {
+      "filePath": "2pane-example.lazy.tsx"
+    },
+    "/3pane-example": {
+      "filePath": "3pane-example.lazy.tsx"
     },
     "/example": {
       "filePath": "example.lazy.tsx",

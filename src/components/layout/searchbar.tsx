@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useCombobox } from "downshift";
-import { Box, Flex, Input, List } from "@chakra-ui/react";
+import { Box, Flex, HStack, Input, List } from "@chakra-ui/react";
 import { InputGroup } from "../ui/input-group";
 import { LuSearch } from "react-icons/lu";
 import { IoArrowForward } from "react-icons/io5";
@@ -37,6 +37,24 @@ const items: Item[] = [
     romaji: "example",
     icon: IoMdSettings,
     link: { to: "/example" },
+  },
+  {
+    id: "3",
+    name: "Example2pane",
+    kana: "えぐざんぷるつーぺいん",
+    katakana: "エグザンプルツーペイン",
+    romaji: "example2pane",
+    icon: IoMdSettings,
+    link: { to: "/2pane-example" },
+  },
+  {
+    id: "4",
+    name: "Example3pane",
+    kana: "えぐざんぷるすりーぺいん",
+    katakana: "エグザンプルスリーペイン",
+    romaji: "example3pane",
+    icon: IoMdSettings,
+    link: { to: "/3pane-example" },
   },
 ];
 
@@ -105,7 +123,7 @@ function SearchBar() {
               })}
               px={4}
               py={2}
-              _hover={{ bg: "bg.muted" }}
+              _hover={{ bg: "bg.muted", color: "fg" }}
               fontSize={"sm"}
               color={"fg.muted"}
               cursor="pointer"
@@ -114,13 +132,17 @@ function SearchBar() {
               <Flex justifyContent="space-between">
                 <Box>
                   <List.Indicator asChild>
-                    <item.icon />
+                    <HStack>
+                      <item.icon />
+                      {item.name}
+                    </HStack>
                   </List.Indicator>
-                  {item.name}
                 </Box>
                 <Box>
                   <List.Indicator>
-                    <IoArrowForward />
+                    <Box>
+                      <IoArrowForward />
+                    </Box>
                   </List.Indicator>
                 </Box>
               </Flex>

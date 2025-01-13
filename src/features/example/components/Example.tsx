@@ -16,7 +16,7 @@ export function Example() {
   const activeTab = lastPathFragment === "example" ? "" : lastPathFragment;
   return (
     <>
-      <BreadcrumbRoot mb={3} variant="plain">
+      <BreadcrumbRoot mb={1} variant="plain">
         <BreadcrumbLink href="#">
           <LuHouse /> Home
         </BreadcrumbLink>

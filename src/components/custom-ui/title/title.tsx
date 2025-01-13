@@ -7,13 +7,15 @@ type TitleProp = {
 
 export const Title = ({ title, description }: TitleProp) => {
   return (
-    <Stack gap={2} align={"flex-start"} mb={3}>
-      <Heading size="3xl" letterSpacing="tight">
-        {title}
-      </Heading>
-      <Text fontSize="md" color="fg.muted">
-        {description}
-      </Text>
-    </Stack>
+    <>
+      <Stack gap={1} align={"flex-start"} mb={2}>
+        <Heading size="2xl" fontWeight={"bold"} letterSpacing="tight">
+          {title}
+        </Heading>
+        <Text fontSize="sm" color="fg.muted">
+          {description}
+        </Text>
+      </Stack>
+    </>
   );
 };
