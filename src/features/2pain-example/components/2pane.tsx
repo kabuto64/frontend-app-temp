@@ -25,7 +25,7 @@ export function Example2pane() {
         </BreadcrumbLink>
         <BreadcrumbCurrentLink>Example-2pane</BreadcrumbCurrentLink>
       </BreadcrumbRoot>
-      <Title title="Example-2pane" description="This is a ExamplePage" />
+      <Title title="Example-2pane" />
       <Tabs.Root defaultValue="members">
         <Tabs.List>
           <Tabs.Trigger value="members">
@@ -51,7 +51,7 @@ export function Example2pane() {
                   <DataTable
                     data={users}
                     columns={columns}
-                    height="calc(100vh - 240px)"
+                    height="calc(100vh - 210px)"
                     width="100%"
                     isFetching={isFetching}
                     dummyItemLength={20}
@@ -75,7 +75,7 @@ export function Example2pane() {
                   borderColor={"border"}
                   borderWidth={1}
                   borderRadius={"lg"}
-                  h={"calc(100vh - 240px)"}
+                  h={"calc(100vh - 210px)"}
                   minW={"300px"}
                 >
                   <Box p={3} fontWeight={"600"}>

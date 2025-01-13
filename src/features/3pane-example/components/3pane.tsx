@@ -26,7 +26,7 @@ export function Example3pane() {
         </BreadcrumbLink>
         <BreadcrumbCurrentLink>Example-3pane</BreadcrumbCurrentLink>
       </BreadcrumbRoot>
-      <Title title="Example-3pane" description="This is a ExamplePage" />
+      <Title title="Example-3pane" />
       <Tabs.Root defaultValue="members">
         <Tabs.List>
           <Tabs.Trigger value="members">
@@ -41,8 +41,8 @@ export function Example3pane() {
         <Tabs.Content value="members">
           <Splitter.Root
             defaultSize={[
-              { id: "a", size: 20 },
-              { id: "b", size: 80 },
+              { id: "a", size: 15 },
+              { id: "b", size: 85 },
             ]}
             asChild
           >
@@ -52,7 +52,7 @@ export function Example3pane() {
                   <DataTable
                     data={users}
                     columns={masterColumns}
-                    height="calc(100vh - 240px)"
+                    height="calc(100vh - 210px)"
                     width="100%"
                     isFetching={isFetching}
                     dummyItemLength={20}
@@ -72,7 +72,7 @@ export function Example3pane() {
                 ></Center>
               </Splitter.ResizeTrigger>
               <Splitter.Panel id="b" asChild>
-                <Box h={"calc(100vh - 240px)"} minW={"300px"}>
+                <Box h={"calc(100vh - 210px)"} minW={"300px"}>
                   <Splitter.Root
                     orientation="vertical"
                     defaultSize={[

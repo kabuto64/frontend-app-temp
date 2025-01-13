@@ -4,8 +4,6 @@ import { LinkOptions, useNavigate } from "@tanstack/react-router";
 import { Title } from "@/components/custom-ui/title";
 import { IconType } from "react-icons";
 import { IoMdSettings } from "react-icons/io";
-import { BasicDatePicker } from "@/components/custom-ui/datepicker";
-import { useState } from "react";
 import { BreadcrumbLink, BreadcrumbRoot } from "@/components/ui/breadcrumb";
 import { LuHouse } from "react-icons/lu";
 type ContentCardProp = {
@@ -43,7 +41,6 @@ const ContentCard = ({
 };
 
 export function Dashboad() {
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
   return (
     <>
       <BreadcrumbRoot mb={1} variant="plain">
@@ -52,13 +49,24 @@ export function Dashboad() {
         </BreadcrumbLink>
       </BreadcrumbRoot>
       <Title title="Welcome!" description="This is a StartPage" />
-      <BasicDatePicker onTextChange={setSelectedDate} />
       <Stack gap="4" direction="row" wrap="wrap" mt={5}>
         <ContentCard
           icon={IoMdSettings}
           title={"Example"}
-          description={selectedDate as string}
+          description={"Basic Example Page."}
           link={{ to: "/example" }}
+        />
+        <ContentCard
+          icon={IoMdSettings}
+          title={"Example 2pane"}
+          description={"2pane Example Page."}
+          link={{ to: "/2pane-example" }}
+        />
+        <ContentCard
+          icon={IoMdSettings}
+          title={"Example 3pane"}
+          description={"3pane Example Page."}
+          link={{ to: "/3pane-example" }}
         />
       </Stack>
     </>
