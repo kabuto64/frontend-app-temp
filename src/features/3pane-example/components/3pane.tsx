@@ -24,9 +24,9 @@ export function Example3pane() {
         <BreadcrumbLink href="#">
           <LuHouse /> Home
         </BreadcrumbLink>
-        <BreadcrumbCurrentLink>Example-3pain</BreadcrumbCurrentLink>
+        <BreadcrumbCurrentLink>Example-3pane</BreadcrumbCurrentLink>
       </BreadcrumbRoot>
-      <Title title="Example-3pain" description="This is a ExamplePage" />
+      <Title title="Example-3pane" description="This is a ExamplePage" />
       <Tabs.Root defaultValue="members">
         <Tabs.List>
           <Tabs.Trigger value="members">
