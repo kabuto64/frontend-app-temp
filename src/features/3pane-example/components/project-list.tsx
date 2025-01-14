@@ -42,7 +42,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
             <LuUser />
             {project.projectManager}
           </HStack>
-          <HStack color="fg.muted" textStyle="sm">
+          <HStack color="fg.muted" textStyle="xs">
             <LuCalendar />
             {format(new Date(project.lastUpdated), "yyyy-MM-dd")}
           </HStack>
@@ -64,7 +64,7 @@ const SkeletonCard = () => {
         cursor={"pointer"}
       >
         <HStack px={3} py={2} gap="3">
-          <SkeletonCircle size={8} />
+          <SkeletonCircle size={6} />
           <Stack gap="1">
             <Skeleton height={5} w={"150px"} />
             <Skeleton height={4} w={"70px"} />
