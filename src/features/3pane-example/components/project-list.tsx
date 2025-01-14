@@ -32,13 +32,13 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
             <Text fontWeight="semibold" textStyle="sm">
               {project.projectName}
             </Text>
-            <HStack color="fg.muted" textStyle="sm">
+            <HStack color="fg.muted" textStyle="2xs">
               @{project.projectNumber}
             </HStack>
           </Stack>
         </HStack>
         <Flex px={3} mb="2" gap="3" justifyContent={"space-between"}>
-          <HStack color="fg.muted" textStyle="sm">
+          <HStack color="fg.muted" textStyle="xs">
             <LuUser />
             {project.projectManager}
           </HStack>
