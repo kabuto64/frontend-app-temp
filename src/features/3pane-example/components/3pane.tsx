@@ -8,14 +8,15 @@ import { Title } from "@/components/custom-ui/title";
 import { Splitter } from "@ark-ui/react/splitter";
 import { Box, Center } from "@chakra-ui/react";
 import { useUsers } from "../hooks/useUsers";
-import { useDatailColumns, useMasterColumns } from "../hooks/useColumns";
+import { useDatailColumns } from "../hooks/useColumns";
 import { DataTable } from "@/components/custom-ui/datatable";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Tabs } from "@chakra-ui/react";
+import { ProjectList } from "./project-list";
+import { IoMdSettings } from "react-icons/io";
 
 export function Example3pane() {
   const { data: users, isFetching, error } = useUsers();
-  const masterColumns = useMasterColumns();
   const datailColumns = useDatailColumns();
   if (error) return <div>Error occurred</div>;
   return (
@@ -27,36 +28,29 @@ export function Example3pane() {
         <BreadcrumbCurrentLink>Example-3pane</BreadcrumbCurrentLink>
       </BreadcrumbRoot>
       <Title title="Example-3pane" />
-      <Tabs.Root defaultValue="members">
+      <Tabs.Root defaultValue="projects">
         <Tabs.List>
-          <Tabs.Trigger value="members">
-            <LuUser />
-            Members
-          </Tabs.Trigger>
-          <Tabs.Trigger value="projects" disabled>
+          <Tabs.Trigger value="projects">
             <LuFolder />
             Projects
           </Tabs.Trigger>
+          <Tabs.Trigger value="settings" disabled>
+            <IoMdSettings />
+            Settings
+          </Tabs.Trigger>
         </Tabs.List>
-        <Tabs.Content value="members">
+        <Tabs.Content value="projects">
           <Splitter.Root
             defaultSize={[
-              { id: "a", size: 15 },
-              { id: "b", size: 85 },
+              { id: "a", size: 20 },
+              { id: "b", size: 80 },
             ]}
             asChild
           >
             <Box>
               <Splitter.Panel id="a" asChild>
                 <Box minW={"285px"}>
-                  <DataTable
-                    data={users}
-                    columns={masterColumns}
-                    height="calc(100vh - 210px)"
-                    width="100%"
-                    isFetching={isFetching}
-                    dummyItemLength={20}
-                  />
+                  <ProjectList />
                 </Box>
               </Splitter.Panel>
               <Splitter.ResizeTrigger id="a:b" asChild>
